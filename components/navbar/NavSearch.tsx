@@ -6,7 +6,6 @@ const NavSearch = () => {
       type="text"
       placeholder="find a property..."
       className="max-w-xs dark:bg-muted"
-      value=""
     />
   );
 };
