@@ -1,8 +1,8 @@
-type Link = {
+type userMenu = {
   href: string;
   label: string;
 };
-export const menuLinks: Link[] = [
+export const menuLinks: userMenu[] = [
   { href: "/", label: "home" },
   { href: "/favorites ", label: "favorites" },
   { href: "/bookings ", label: "bookings" },
