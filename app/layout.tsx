@@ -3,6 +3,7 @@ import "./globals.css";
 
 import { Toaster } from "@/components/ui/sonner";
 import Navbar from "@/components/navbar/Navbar";
+import Providers from "@/app/providers";
 
 export const metadata: Metadata = {
   title: "Travel Haven",
@@ -16,10 +17,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="">
-        <Navbar />
-        <main className="container py-10">{children}</main>
-        <Toaster />
+      <body className="" suppressHydrationWarning>
+        <Providers>
+          <Navbar />
+          <main className="container py-10">{children}</main>
+          <Toaster />
+        </Providers>
       </body>
     </html>
   );
