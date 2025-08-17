@@ -5,6 +5,8 @@ import { Toaster } from "@/components/ui/sonner";
 import Navbar from "@/components/navbar/Navbar";
 import Providers from "@/app/providers";
 
+import { ClerkProvider } from "@clerk/nextjs";
+
 export const metadata: Metadata = {
   title: "Travel Haven",
   description: "Feel at home, away from home.",
@@ -16,14 +18,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="" suppressHydrationWarning>
-        <Providers>
-          <Navbar />
-          <main className="container py-10">{children}</main>
-          <Toaster />
-        </Providers>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body className="" suppressHydrationWarning>
+          <Providers>
+            <Navbar />
+            <main className="container py-10">{children}</main>
+            <Toaster />
+          </Providers>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
