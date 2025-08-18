@@ -1,6 +1,6 @@
 "use client";
 
-import { actionFunction } from "@/utils/Types";
+import { actionFunction } from "@/utils/types";
 import React, { useActionState, useEffect } from "react";
 import { toast } from "sonner";
 
