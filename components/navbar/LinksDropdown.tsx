@@ -9,7 +9,7 @@ import { LuAlignLeft } from "react-icons/lu";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import UserIcon from "./UserIcon";
-import { menuLinks } from "@/utils/Links";
+import { menuLinks } from "@/utils/links";
 import SignOutLink from "@/components/navbar/SignOutLink";
 import { SignedIn, SignedOut, SignInButton, SignUpButton } from "@clerk/nextjs";
 
