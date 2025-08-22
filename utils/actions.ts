@@ -1,11 +1,16 @@
 "use server";
 
-import { profileSchema } from "@/utils/schemas";
+import {
+  imageSchema,
+  profileSchema,
+  validateWithZodSchema,
+} from "@/utils/schemas";
 import { clerkClient, currentUser } from "@clerk/nextjs/server";
 
 import db from "./db";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { uploadImage } from "@/utils/supabase";
 
 const renderError = (error: unknown): { message: string } => {
   return {
@@ -31,7 +36,7 @@ export const createProfileAction = async (
     if (!user) throw new Error("Please login to create a profile");
 
     const rawData = Object.fromEntries(formData);
-    const validatedFields = profileSchema.parse(rawData);
+    const validatedFields = validateWithZodSchema(profileSchema, rawData);
 
     await db.profile.create({
       data: {
@@ -96,7 +101,7 @@ export const updateProfileAction = async (
 
   try {
     const rawData = Object.fromEntries(formData);
-    const validatedFields = profileSchema.parse(rawData);
+    const validatedFields = validateWithZodSchema(profileSchema, rawData);
 
     await db.profile.update({
       where: {
@@ -107,6 +112,31 @@ export const updateProfileAction = async (
 
     revalidatePath("/profile");
     return { message: "Profile updated successfully" };
+  } catch (error) {
+    return renderError(error);
+  }
+};
+
+export const updateProfileImageAction = async (
+  prevState: unknown,
+  formData: FormData
+): Promise<{ message: string }> => {
+  const user = await getAuthUser();
+
+  try {
+    const image = formData.get("image") as File;
+
+    const validateFields = validateWithZodSchema(imageSchema, { image });
+    const fullPath = await uploadImage(validateFields.image);
+
+    await db.profile.update({
+      where: { clerkId: user.id },
+      data: { profileImage: fullPath },
+    });
+
+    revalidatePath("/profile");
+
+    return { message: "Profile image updated successfully" };
   } catch (error) {
     return renderError(error);
   }
