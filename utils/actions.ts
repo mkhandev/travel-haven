@@ -88,8 +88,6 @@ export const fetchProfile = async () => {
     },
   });
 
-  console.log(user.id);
-
   if (!profile) redirect("/profile/create");
   return profile;
 };
@@ -151,6 +149,18 @@ export const createPropertyAction = async <T>(
   try {
     const rawData = Object.fromEntries(formData);
     const validatedFields = validateWithZodSchema(propertySchema, rawData);
+
+    const image = formData.get("image") as File;
+    const validateImage = validateWithZodSchema(imageSchema, { image });
+    const fullPath = await uploadImage(validateImage.image);
+
+    await db.property.create({
+      data: {
+        ...validatedFields,
+        image: fullPath,
+        profileId: user.id,
+      },
+    });
 
     return { message: "Property created." };
   } catch (error) {
