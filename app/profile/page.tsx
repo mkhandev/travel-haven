@@ -1,7 +1,12 @@
 import FormContainer from "@/components/form/FormContainer";
-import { updateProfileAction, fetchProfile } from "@/utils/actions";
+import {
+  updateProfileAction,
+  fetchProfile,
+  updateProfileImageAction,
+} from "@/utils/actions";
 import FormInput from "@/components/form/FormInput";
 import { SubmitButton } from "@/components/form/SubmitButton";
+import ImageInputContainer from "@/components/form/ImageInputContainer";
 
 async function ProfilePage() {
   const profile = await fetchProfile();
@@ -10,6 +15,12 @@ async function ProfilePage() {
     <section>
       <h1 className="mb-8 text-2xl font-semibold capitalize">User profile</h1>
       <div className="p-8 border rounded-md ">
+        <ImageInputContainer
+          image={profile.profileImage}
+          name={profile.userName}
+          action={updateProfileImageAction}
+          text="Update Profile Image"
+        />
         <FormContainer action={updateProfileAction}>
           <div className="grid gap-4 mt-4 md:grid-cols-2">
             <FormInput

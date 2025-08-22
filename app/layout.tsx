@@ -24,7 +24,7 @@ export default function RootLayout({
           <Providers>
             <Navbar />
             <main className="container py-10">{children}</main>
-            <Toaster />
+            <Toaster position="top-right" />
           </Providers>
         </body>
       </html>
