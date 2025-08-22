@@ -1,23 +1,28 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-const ImageInput = () => {
-  const name = "image";
+type defaultValue = {
+  defaultValue?: number;
+};
+
+const PriceInput = ({ defaultValue }: defaultValue) => {
+  const name = "price";
   return (
     <div className="mb-2">
       <Label htmlFor={name} className="mb-2 capitalize">
-        Image
+        Price ($)
       </Label>
+
       <Input
         id={name}
         name={name}
-        type="file"
-        accept="image/*"
-        className="max-w-xs"
+        type="number"
+        min={0}
+        defaultValue={defaultValue || 100}
         required
       />
     </div>
   );
 };
 
-export default ImageInput;
+export default PriceInput;
