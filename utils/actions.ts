@@ -3,6 +3,7 @@
 import {
   imageSchema,
   profileSchema,
+  propertySchema,
   validateWithZodSchema,
 } from "@/utils/schemas";
 import { clerkClient, currentUser } from "@clerk/nextjs/server";
@@ -140,4 +141,20 @@ export const updateProfileImageAction = async (
   } catch (error) {
     return renderError(error);
   }
+};
+
+export const createPropertyAction = async <T>(
+  prevState: T,
+  formData: FormData
+): Promise<{ message: string }> => {
+  const user = await getAuthUser();
+  try {
+    const rawData = Object.fromEntries(formData);
+    const validatedFields = validateWithZodSchema(propertySchema, rawData);
+
+    return { message: "Property created." };
+  } catch (error) {
+    return renderError(error);
+  }
+  redirect("/");
 };

@@ -14,7 +14,7 @@ const FormInput = (props: FormInputProps) => {
 
   return (
     <div className="mb-2">
-      <Label htmlFor={name} className="capitalize">
+      <Label htmlFor={name} className="mb-2 capitalize">
         {label || name}
       </Label>
       <Input
