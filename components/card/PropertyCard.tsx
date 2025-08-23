@@ -1,3 +1,5 @@
+import FavoriteToggleButton from "@/components/card/FavoriteToggleButton";
+import PropertyRating from "@/components/card/PropertyRating";
 import { formatCurrency } from "@/utils/format";
 import { PropertyCardProps } from "@/utils/types";
 import Image from "next/image";
@@ -24,6 +26,7 @@ const PropertyCard = ({ property }: { property: PropertyCardProps }) => {
             {name.substring(0, 30)}
           </h3>
           {/* property rating */}
+          <PropertyRating inPage={true} propertyId={propertyId} />
         </div>
 
         <p className="mt-1 text-sm text-muted-foreground">
@@ -37,6 +40,11 @@ const PropertyCard = ({ property }: { property: PropertyCardProps }) => {
           {/* country and flag */}
         </div>
       </Link>
+
+      <div className="absolute top-5 right-5 z-5">
+        {/* favorite toggle button */}
+        <FavoriteToggleButton propertyId={propertyId} />
+      </div>
     </article>
   );
 };
