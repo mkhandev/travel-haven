@@ -161,10 +161,45 @@ export const createPropertyAction = async <T>(
         profileId: user.id,
       },
     });
-
-    return { message: "Property created." };
   } catch (error) {
     return renderError(error);
   }
   redirect("/");
+};
+
+export const fetchProperties = async ({
+  search = "",
+  category,
+}: {
+  search?: string;
+  category?: string;
+}) => {
+  const filters: Record<string, unknown> = {};
+
+  if (category) {
+    filters.category = category;
+  }
+
+  if (search) {
+    filters.OR = [
+      { name: { contains: search, mode: "insensitive" } },
+      { tagline: { contains: search, mode: "insensitive" } },
+    ];
+  }
+
+  const properties = await db.property.findMany({
+    ...(Object.keys(filters).length > 0 ? { where: filters } : {}),
+    select: {
+      id: true,
+      name: true,
+      tagline: true,
+      country: true,
+      price: true,
+      image: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+  return properties;
 };
