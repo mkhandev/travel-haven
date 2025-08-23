@@ -1,3 +1,4 @@
+import CountryFlagAndName from "@/components/card/CountryFlagAndName";
 import FavoriteToggleButton from "@/components/card/FavoriteToggleButton";
 import PropertyRating from "@/components/card/PropertyRating";
 import { formatCurrency } from "@/utils/format";
@@ -38,6 +39,7 @@ const PropertyCard = ({ property }: { property: PropertyCardProps }) => {
             night
           </p>
           {/* country and flag */}
+          <CountryFlagAndName countryCode={country} />
         </div>
       </Link>
 
