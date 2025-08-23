@@ -27,8 +27,6 @@ const AmenitiesInput = ({ defaultValue }: { defaultValue?: Amenity[] }) => {
     });
   };
 
-  console.log(selectedAmenities);
-
   return (
     <section>
       <input
