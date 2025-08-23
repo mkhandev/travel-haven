@@ -1,3 +1,4 @@
+import { formatCurrency } from "@/utils/format";
 import { PropertyCardProps } from "@/utils/types";
 import Image from "next/image";
 import Link from "next/link";
@@ -30,7 +31,7 @@ const PropertyCard = ({ property }: { property: PropertyCardProps }) => {
         </p>
         <div className="flex items-center justify-between mt-1">
           <p className="mt-1 text-sm">
-            <span className="font-semibold">{price} </span>
+            <span className="font-semibold">{formatCurrency(price)} </span>
             night
           </p>
           {/* country and flag */}
