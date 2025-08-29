@@ -42,7 +42,7 @@ const ShareButton = ({
         sideOffset={10}
         className="flex items-center justify-center w-full gap-x-2"
       >
-        <FacebookShareButton url={shareLink} quote={name}>
+        <FacebookShareButton url={shareLink}>
           <FacebookIcon size={32} round />
         </FacebookShareButton>
 

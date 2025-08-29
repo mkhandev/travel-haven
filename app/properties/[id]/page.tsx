@@ -1,5 +1,6 @@
 import FavoriteToggleButton from "@/components/card/FavoriteToggleButton";
 import PropertyRating from "@/components/card/PropertyRating";
+import Amenities from "@/components/properties/Amenities";
 import BookingCalendar from "@/components/properties/BookingCalendar";
 import BreadCrumbs from "@/components/properties/BreadCrumbs";
 import Description from "@/components/properties/Description";
@@ -47,6 +48,7 @@ const PropertyDetailsPage = async ({
           <PropertyDetails details={details} />
           <UserInfo profile={{ firstName, profileImage }} />
           <Description description={property.description} />
+          <Amenities amenities={property.amenities} />
         </div>
 
         <div className="flex flex-col items-center lg:col-span-4">

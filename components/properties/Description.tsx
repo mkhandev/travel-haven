@@ -4,7 +4,7 @@ import Title from "@/components/properties/Title";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
-const Description = ({ description }: { string }) => {
+const Description = ({ description }: { description: string }) => {
   const [isFullDescriptionShown, setIsFullDescriptionShown] = useState(false);
 
   const words = description.split(" ");
