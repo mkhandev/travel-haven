@@ -8,8 +8,11 @@ import ImageContainer from "@/components/properties/ImageContainer";
 import PropertyDetails from "@/components/properties/PropertyDetails";
 import ShareButton from "@/components/properties/ShareButton";
 import UserInfo from "@/components/properties/UserInfo";
+import { Separator } from "@/components/ui/separator";
 import { fetchPropertyDetails } from "@/utils/actions";
 import { redirect } from "next/navigation";
+
+import DynamicMap from "@/components/properties/DynamicMap";
 
 const PropertyDetailsPage = async ({
   params,
@@ -47,8 +50,11 @@ const PropertyDetailsPage = async ({
           </div>
           <PropertyDetails details={details} />
           <UserInfo profile={{ firstName, profileImage }} />
+          <Separator className="mt-4" />
           <Description description={property.description} />
           <Amenities amenities={property.amenities} />
+
+          <DynamicMap countryCode={property.country} />
         </div>
 
         <div className="flex flex-col items-center lg:col-span-4">
