@@ -13,6 +13,7 @@ import { fetchPropertyDetails } from "@/utils/actions";
 import { redirect } from "next/navigation";
 
 import DynamicMap from "@/components/properties/DynamicMap";
+import SubmitReview from "@/components/reviews/SubmitReview";
 
 const PropertyDetailsPage = async ({
   params,
@@ -62,6 +63,8 @@ const PropertyDetailsPage = async ({
           <BookingCalendar />
         </div>
       </section>
+
+      <SubmitReview propertyId={property.id} />
     </section>
   );
 };
