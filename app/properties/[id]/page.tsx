@@ -14,6 +14,7 @@ import { redirect } from "next/navigation";
 
 import DynamicMap from "@/components/properties/DynamicMap";
 import SubmitReview from "@/components/reviews/SubmitReview";
+import PropertyReviews from "@/components/reviews/PropertyReviews";
 
 const PropertyDetailsPage = async ({
   params,
@@ -65,6 +66,7 @@ const PropertyDetailsPage = async ({
       </section>
 
       <SubmitReview propertyId={property.id} />
+      <PropertyReviews propertyId={property.id} />
     </section>
   );
 };
