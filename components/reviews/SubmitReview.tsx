@@ -3,7 +3,7 @@
 import FormContainer from "@/components/form/FormContainer";
 import { SubmitButton } from "@/components/form/SubmitButton";
 import TextAreaInput from "@/components/form/TextAreaInput";
-import RatingInput from "@/components/reviews/RatingInput";
+import RatingInput from "@/components/form/RatingInput";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { createReviewAction } from "@/utils/actions";
