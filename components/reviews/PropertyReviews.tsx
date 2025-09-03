@@ -16,8 +16,8 @@ const PropertyReviews = async ({ propertyId }: { propertyId: string }) => {
           const reviewInfo = {
             comment,
             rating,
-            firstName,
-            profileImage,
+            name: firstName,
+            image: profileImage,
           };
 
           return <ReviewCard key={index} reviewInfo={reviewInfo} />;
