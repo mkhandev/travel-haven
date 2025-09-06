@@ -5,6 +5,8 @@ import { fetchPropertyReviews } from "@/utils/actions";
 const PropertyReviews = async ({ propertyId }: { propertyId: string }) => {
   const reviews = await fetchPropertyReviews(propertyId);
 
+  if (reviews.length === 0) return null;
+
   return (
     <div className="mt-8">
       <Title text="Reviews" />

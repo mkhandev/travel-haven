@@ -9,12 +9,13 @@ import PropertyDetails from "@/components/properties/PropertyDetails";
 import ShareButton from "@/components/properties/ShareButton";
 import UserInfo from "@/components/properties/UserInfo";
 import { Separator } from "@/components/ui/separator";
-import { fetchPropertyDetails } from "@/utils/actions";
+import { fetchPropertyDetails, findExistingReview } from "@/utils/actions";
 import { redirect } from "next/navigation";
 
 import DynamicMap from "@/components/properties/DynamicMap";
 import SubmitReview from "@/components/reviews/SubmitReview";
 import PropertyReviews from "@/components/reviews/PropertyReviews";
+import { auth } from "@clerk/nextjs/server";
 
 const PropertyDetailsPage = async ({
   params,
@@ -30,6 +31,11 @@ const PropertyDetailsPage = async ({
   const details = { baths, bedrooms, beds, guests };
   const firstName = property.profile.firstName;
   const profileImage = property.profile.profileImage;
+
+  const { userId } = await auth();
+  const isNotOwner = userId !== property.profile.clerkId;
+  const reviewDoesNotExist =
+    userId && isNotOwner && !(await findExistingReview(userId, property.id));
 
   return (
     <section>
@@ -65,7 +71,7 @@ const PropertyDetailsPage = async ({
         </div>
       </section>
 
-      <SubmitReview propertyId={property.id} />
+      {reviewDoesNotExist && <SubmitReview propertyId={property.id} />}
       <PropertyReviews propertyId={property.id} />
     </section>
   );
