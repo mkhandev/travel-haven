@@ -301,6 +301,12 @@ export const fetchPropertyDetails = async (propertyId: string) => {
     },
     include: {
       profile: true,
+      Booking: {
+        select: {
+          checkIn: true,
+          checkOut: true,
+        },
+      },
     },
   });
 };
