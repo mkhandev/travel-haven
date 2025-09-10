@@ -16,6 +16,7 @@ import DynamicMap from "@/components/properties/DynamicMap";
 import SubmitReview from "@/components/reviews/SubmitReview";
 import PropertyReviews from "@/components/reviews/PropertyReviews";
 import { auth } from "@clerk/nextjs/server";
+import DynamicBookingWrapper from "@/components/booking/DynamicBookingWrapper";
 
 const PropertyDetailsPage = async ({
   params,
@@ -67,7 +68,12 @@ const PropertyDetailsPage = async ({
 
         <div className="flex flex-col items-center lg:col-span-4">
           {/* calendar */}
-          <BookingCalendar />
+          {/* <BookingCalendar /> */}
+          <DynamicBookingWrapper
+            propertyId={property.id}
+            price={property.price}
+            bookings={property.Booking}
+          />
         </div>
       </section>
 
