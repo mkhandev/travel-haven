@@ -17,7 +17,6 @@ const BookingWrapper = ({
 }: BookingWrapperProps) => {
   useEffect(() => {
     useProperty.setState({ propertyId, price, bookings });
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (

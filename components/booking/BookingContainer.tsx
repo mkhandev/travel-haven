@@ -9,9 +9,6 @@ const BookingContainer = () => {
 
   if (range.from.getTime() === range.to.getTime()) return null;
 
-  console.log("from ====== " + range.from.getTime());
-  console.log("to ======== " + range.to.getTime());
-
   return (
     <div className="w-full">
       <BookingForm />

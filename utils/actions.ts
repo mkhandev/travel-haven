@@ -13,6 +13,7 @@ import db from "./db";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { uploadImage } from "@/utils/supabase";
+import { calculateTotals } from "@/utils/calculateTotals";
 
 const renderError = (error: unknown): { message: string } => {
   return {
@@ -404,4 +405,44 @@ export const findExistingReview = async (
       propertyId: propertyId,
     },
   });
+};
+
+export const createBookingAction = async (prevState: {
+  propertyId: string;
+  checkIn: Date;
+  checkOut: Date;
+}) => {
+  const user = await getAuthUser();
+  const { propertyId, checkIn, checkOut } = prevState;
+
+  const property = await db.property.findUnique({
+    where: { id: propertyId },
+    select: { price: true },
+  });
+
+  if (!property) throw new Error("Property not found");
+
+  const { orderTotal, totalNights } = calculateTotals({
+    checkIn,
+    checkOut,
+    price: property.price,
+  });
+
+  try {
+    const booking = await db.booking.create({
+      data: {
+        checkIn,
+        checkOut,
+        orderTotal,
+        totalNights,
+        profileId: user.id,
+        propertyId,
+      },
+    });
+
+    const bookingId = booking.id;
+    redirect(`/checkout?bookingId=${bookingId}`);
+  } catch (error) {
+    return renderError(error);
+  }
 };
