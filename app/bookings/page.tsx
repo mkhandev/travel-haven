@@ -1,4 +1,6 @@
 import CountryFlagAndName from "@/components/card/CountryFlagAndName";
+import { IconButton } from "@/components/form/Button";
+import FormContainer from "@/components/form/FormContainer";
 import EmptyList from "@/components/home/EmptyList";
 import {
   Table,
@@ -9,7 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { fetchBookings } from "@/utils/actions";
+import { deleteBookingAction, fetchBookings } from "@/utils/actions";
 import { formatCurrency, formatDate } from "@/utils/format";
 import Link from "next/link";
 
@@ -58,7 +60,9 @@ const HomePage = async () => {
                 <TableCell>{formatCurrency(orderTotal)}</TableCell>
                 <TableCell>{startDate}</TableCell>
                 <TableCell>{endDate}</TableCell>
-                <TableCell>de</TableCell>
+                <TableCell>
+                  <DeleteBooking bookingId={id} />
+                </TableCell>
               </TableRow>
             );
           })}
@@ -67,5 +71,14 @@ const HomePage = async () => {
     </div>
   );
 };
+
+function DeleteBooking({ bookingId }: { bookingId: string }) {
+  const deleteBooking = deleteBookingAction.bind(null, { bookingId });
+  return (
+    <FormContainer action={deleteBooking}>
+      <IconButton actionType="delete" />
+    </FormContainer>
+  );
+}
 
 export default HomePage;
