@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { createBookingAction } from "@/utils/actions";
 import { useProperty } from "@/utils/store";
 import { SignInButton, useAuth } from "@clerk/nextjs";
-import { create } from "domain";
 import React from "react";
 
 const ConfirmBooking = () => {
