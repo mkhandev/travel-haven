@@ -689,6 +689,7 @@ export const fetchChartsData = async () => {
     const date = formatDate(current.createdAt, true);
 
     const existingEntry = total.find((entry) => entry.date === date);
+
     if (existingEntry) {
       existingEntry.count += 1;
     } else {
