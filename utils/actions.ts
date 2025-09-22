@@ -447,7 +447,11 @@ export const createBookingAction = async (prevState: {
     });
 
     const bookingId = booking.id;
-    redirect(`/checkout?bookingId=${bookingId}`);
+    //return redirect(`/checkout?bookingId=${bookingId}`);
+    return {
+      message: "Booking added successfully",
+      redirectTo: `/checkout?bookingId=${bookingId}`,
+    };
   } catch (error) {
     return renderError(error);
   }

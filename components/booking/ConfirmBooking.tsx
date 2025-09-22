@@ -1,3 +1,5 @@
+"use client";
+
 import FormContainer from "@/components/form/FormContainer";
 import { SubmitButton } from "@/components/form/SubmitButton";
 import { Button } from "@/components/ui/button";
