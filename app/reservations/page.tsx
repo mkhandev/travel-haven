@@ -1,5 +1,6 @@
 import CountryFlagAndName from "@/components/card/CountryFlagAndName";
 import EmptyList from "@/components/home/EmptyList";
+import Stats from "@/components/reservations/Stats";
 import {
   Table,
   TableBody,
@@ -21,6 +22,7 @@ const ReservationsPage = async () => {
 
   return (
     <>
+      <Stats />
       <div className="mt-16">
         <h4 className="mb-4 capitalize">
           total reservations : {reservations.length}

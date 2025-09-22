@@ -1,10 +1,16 @@
 "use client";
 
 import { actionFunction } from "@/utils/types";
+import { useRouter } from "next/navigation";
 import React, { useActionState, useEffect } from "react";
 import { toast } from "sonner";
 
-const initialState = {
+type ActionState = {
+  message: string;
+  redirectTo?: string;
+};
+
+const initialState: ActionState = {
   message: "",
 };
 
@@ -15,13 +21,13 @@ const FormContainer = ({
   action: actionFunction;
   children: React.ReactNode;
 }) => {
+  const router = useRouter();
   const [state, formAction] = useActionState(action, initialState);
 
   useEffect(() => {
-    if (state.message) {
-      toast(state.message);
-    }
-  }, [state]);
+    if (state.message) toast(state.message);
+    if (state.redirectTo) router.push(state.redirectTo);
+  }, [state, router]);
   return <form action={formAction}>{children}</form>;
 };
 
