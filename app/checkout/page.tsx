@@ -1,4 +1,5 @@
 "use client";
+
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
 import { loadStripe } from "@stripe/stripe-js";
@@ -7,22 +8,20 @@ import {
   EmbeddedCheckout,
 } from "@stripe/react-stripe-js";
 
-import { useCallback } from "react";
+import { useCallback, Suspense } from "react";
 
 const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
 );
 
-const CheckoutPage = () => {
+function CheckoutPageInner() {
   const searchParams = useSearchParams();
   const bookingId = searchParams.get("bookingId");
 
   const fetchClientSecret = useCallback(async () => {
-    const response = await axios.post("/api/payment", {
-      bookingId: bookingId,
-    });
+    const response = await axios.post("/api/payment", { bookingId });
     return response.data.clientSecret;
-  }, []);
+  }, [bookingId]);
 
   const options = { fetchClientSecret };
 
@@ -33,6 +32,12 @@ const CheckoutPage = () => {
       </EmbeddedCheckoutProvider>
     </div>
   );
-};
+}
 
-export default CheckoutPage;
+export default function CheckoutPage() {
+  return (
+    <Suspense fallback={<div>Loading checkout...</div>}>
+      <CheckoutPageInner />
+    </Suspense>
+  );
+}
