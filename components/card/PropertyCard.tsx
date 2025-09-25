@@ -13,7 +13,7 @@ type PropertyCardComponentProps = {
 
 const PropertyCard = ({ property, favoriteId }: PropertyCardComponentProps) => {
   const { name, image, price } = property;
-  const { country, id: propertyId, tagline } = property;
+  const { country, id: propertyId, tagline, avgRating, reviewCount } = property;
   return (
     <article className="relative group">
       <Link href={`/properties/${propertyId}`}>
@@ -32,7 +32,12 @@ const PropertyCard = ({ property, favoriteId }: PropertyCardComponentProps) => {
             {name.substring(0, 30)}
           </h3>
           {/* property rating */}
-          <PropertyRating inPage={true} propertyId={propertyId} />
+          {/* <PropertyRating inPage={true} propertyId={propertyId} /> */}
+          <PropertyRating
+            inPage={true}
+            avgRating={avgRating}
+            reviewCount={reviewCount}
+          />
         </div>
 
         <p className="mt-1 text-sm text-muted-foreground">

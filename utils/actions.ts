@@ -205,12 +205,29 @@ export const fetchProperties = async ({
       country: true,
       price: true,
       image: true,
+      Review: {
+        select: { rating: true },
+      },
     },
     orderBy: {
       createdAt: "desc",
     },
   });
-  return properties;
+  //return properties;
+
+  // compute average rating for each property
+  return properties.map((p) => {
+    const avgRating =
+      p.Review.length > 0
+        ? p.Review.reduce((sum, r) => sum + r.rating, 0) / p.Review.length
+        : null;
+
+    return {
+      ...p,
+      avgRating,
+      reviewCount: p.Review.length,
+    };
+  });
 };
 
 export const fetchPropertyRating = async (propertyId: string) => {
