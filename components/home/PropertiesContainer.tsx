@@ -1,7 +1,8 @@
 import EmptyList from "@/components/home/EmptyList";
 import PropertiesList from "@/components/home/PropertiesList";
-import { fetchProperties } from "@/utils/actions";
+import { fetchFavoriteIdsForUser, fetchProperties } from "@/utils/actions";
 import { PropertyCardProps } from "@/utils/types";
+import { currentUser } from "@clerk/nextjs/server";
 import React from "react";
 
 const PropertiesContainer = async ({
@@ -26,7 +27,13 @@ const PropertiesContainer = async ({
     );
   }
 
-  return <PropertiesList properties={properties} />;
+  let favoriteMap: Record<string, string | null> = {};
+  const user = await currentUser();
+  if (user) {
+    favoriteMap = await fetchFavoriteIdsForUser(user.id);
+  }
+
+  return <PropertiesList properties={properties} favoriteMap={favoriteMap} />;
 };
 
 export default PropertiesContainer;

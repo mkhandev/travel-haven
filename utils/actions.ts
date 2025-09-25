@@ -250,6 +250,21 @@ export const fetchFavoriteIds = async ({
   return favorite?.id ?? null;
 };
 
+export const fetchFavoriteIdsForUser = async (userId: string) => {
+  const favorites = await db.favorite.findMany({
+    where: { profileId: userId },
+    select: { id: true, propertyId: true },
+  });
+
+  // Map propertyId => favoriteId
+  const favoriteMap: Record<string, string> = {};
+  favorites.forEach((f) => {
+    favoriteMap[f.propertyId] = f.id;
+  });
+
+  return favoriteMap;
+};
+
 export const toggleFavoriteAction = async (prevState: {
   propertyId: string;
   favoriteId: string | null;

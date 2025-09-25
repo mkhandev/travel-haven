@@ -6,7 +6,12 @@ import { PropertyCardProps } from "@/utils/types";
 import Image from "next/image";
 import Link from "next/link";
 
-const PropertyCard = ({ property }: { property: PropertyCardProps }) => {
+type PropertyCardComponentProps = {
+  property: PropertyCardProps;
+  favoriteId?: string | null; // added favoriteId prop
+};
+
+const PropertyCard = ({ property, favoriteId }: PropertyCardComponentProps) => {
   const { name, image, price } = property;
   const { country, id: propertyId, tagline } = property;
   return (
@@ -45,7 +50,7 @@ const PropertyCard = ({ property }: { property: PropertyCardProps }) => {
 
       <div className="absolute top-5 right-5 z-5">
         {/* favorite toggle button */}
-        <FavoriteToggleButton propertyId={propertyId} />
+        <FavoriteToggleButton propertyId={propertyId} favoriteId={favoriteId} />
       </div>
     </article>
   );
