@@ -11,7 +11,7 @@ const CategoriesList = ({
 }) => {
   const searchTerm = search ? `&search=${search}` : "";
   return (
-    <section>
+    <section className="border rounded-md mt-[-20px]">
       <ScrollArea className="py-6">
         <div className="flex gap-x-4">
           {categories.map((item) => {
