@@ -17,8 +17,6 @@ type ChartPropsType = {
 };
 
 const Chart = ({ data }: ChartPropsType) => {
-  console.log(data);
-
   return (
     <section className="mt-24">
       <h1 className="text-4xl font-semibold text-center">Monthly Bookings</h1>
