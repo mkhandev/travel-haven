@@ -7,19 +7,21 @@ import { usePathname } from "next/navigation";
 import React from "react";
 
 type FavoriteToggleFormProps = {
-  favoriteId: string | null;
   propertyId: string;
+  favoriteId?: string | null;
 };
 const FavoriteToggleForm = ({
-  favoriteId,
   propertyId,
+  favoriteId,
 }: FavoriteToggleFormProps) => {
   const pathname = usePathname();
   const toggleAction = toggleFavoriteAction.bind(null, {
     propertyId,
-    favoriteId,
+    favoriteId: favoriteId ?? null,
     pathname,
   });
+
+  //console.log("favoriteId in form", favoriteId);
 
   return (
     <FormContainer action={toggleAction}>
