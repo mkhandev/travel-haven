@@ -1,24 +1,24 @@
-import { fetchPropertyRating } from "@/utils/actions";
 import { FaStar } from "react-icons/fa";
 
-const PropertyRating = async ({
-  propertyId,
+const PropertyRating = ({
   inPage,
+  avgRating,
+  reviewCount,
 }: {
-  propertyId: string;
   inPage: boolean;
+  avgRating: number | null;
+  reviewCount: number;
 }) => {
-  const { rating, count } = await fetchPropertyRating(propertyId);
+  if (!avgRating || reviewCount === 0) return null;
 
-  if (count === 0) return null;
   const className = `flex gap-1 items-center ${inPage ? "text-md" : "text-xs"}`;
-  const countText = count === 1 ? "review" : "reviews";
-  const countValue = `(${count}) ${inPage ? countText : ""}`;
+  const countText = reviewCount === 1 ? "review" : "reviews";
+  const countValue = `(${reviewCount}) ${inPage ? countText : ""}`;
 
   return (
     <span className={className}>
       <FaStar className="w-3 h-3" />
-      {rating} {countValue}
+      {avgRating.toFixed(1)} {countValue}
     </span>
   );
 };

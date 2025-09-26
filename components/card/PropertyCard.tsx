@@ -2,13 +2,18 @@ import CountryFlagAndName from "@/components/card/CountryFlagAndName";
 import FavoriteToggleButton from "@/components/card/FavoriteToggleButton";
 import PropertyRating from "@/components/card/PropertyRating";
 import { formatCurrency } from "@/utils/format";
-import { PropertyCardProps } from "@/utils/types";
+import { PropertyCardWithRating } from "@/utils/types";
 import Image from "next/image";
 import Link from "next/link";
 
-const PropertyCard = ({ property }: { property: PropertyCardProps }) => {
+type PropertyCardComponentProps = {
+  property: PropertyCardWithRating;
+  favoriteId?: string | null;
+};
+
+const PropertyCard = ({ property, favoriteId }: PropertyCardComponentProps) => {
   const { name, image, price } = property;
-  const { country, id: propertyId, tagline } = property;
+  const { country, id: propertyId, tagline, avgRating, reviewCount } = property;
   return (
     <article className="relative group">
       <Link href={`/properties/${propertyId}`}>
@@ -27,7 +32,12 @@ const PropertyCard = ({ property }: { property: PropertyCardProps }) => {
             {name.substring(0, 30)}
           </h3>
           {/* property rating */}
-          <PropertyRating inPage={true} propertyId={propertyId} />
+          {/* <PropertyRating inPage={true} propertyId={propertyId} /> */}
+          <PropertyRating
+            inPage={true}
+            avgRating={avgRating}
+            reviewCount={reviewCount}
+          />
         </div>
 
         <p className="mt-1 text-sm text-muted-foreground">
@@ -45,7 +55,7 @@ const PropertyCard = ({ property }: { property: PropertyCardProps }) => {
 
       <div className="absolute top-5 right-5 z-5">
         {/* favorite toggle button */}
-        <FavoriteToggleButton propertyId={propertyId} />
+        <FavoriteToggleButton propertyId={propertyId} favoriteId={favoriteId} />
       </div>
     </article>
   );

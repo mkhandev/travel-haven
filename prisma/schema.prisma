@@ -46,6 +46,9 @@ model Property {
   Review      Review[]
   Favorite    Favorite[]
   Booking     Booking[]
+
+  @@index([profileId])
+  @@index([category])
 }
 
 model Review {
@@ -61,6 +64,8 @@ model Review {
   comment   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([propertyId])
 }
 
 model Favorite {
@@ -73,6 +78,10 @@ model Favorite {
 
   property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
   propertyId String   @db.Uuid
+
+  @@unique([profileId, propertyId]) // optional: ensures a user can't favorite same property twice
+  @@index([profileId])
+  @@index([propertyId])
 }
 
 model Booking {
@@ -88,4 +97,7 @@ model Booking {
   paymentStatus Boolean  @default(false)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+
+  @@index([profileId])
+  @@index([propertyId])
 }

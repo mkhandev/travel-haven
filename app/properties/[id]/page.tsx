@@ -32,6 +32,8 @@ const PropertyDetailsPage = async ({
   const details = { baths, bedrooms, beds, guests };
   const firstName = property.profile.firstName;
   const profileImage = property.profile.profileImage;
+  const avgRating = property.avgRating;
+  const reviewCount = property.reviewCount;
 
   const { userId } = await auth();
   const isNotOwner = userId !== property.profile.clerkId;
@@ -55,7 +57,11 @@ const PropertyDetailsPage = async ({
         <div className="lg:col-span-8">
           <div className="flex items-center gap-x-4">
             <h1 className="text-xl font-bold">{property.name} </h1>
-            <PropertyRating inPage propertyId={property.id} />
+            <PropertyRating
+              inPage
+              avgRating={avgRating}
+              reviewCount={reviewCount}
+            />
           </div>
           <PropertyDetails details={details} />
           <UserInfo profile={{ firstName, profileImage }} />

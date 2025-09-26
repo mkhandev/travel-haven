@@ -1,15 +1,22 @@
 import EmptyList from "@/components/home/EmptyList";
 import PropertiesList from "@/components/home/PropertiesList";
-import { fetchFavorites } from "@/utils/actions";
+import { fetchFavoriteIdsForUser, fetchFavorites } from "@/utils/actions";
+import { currentUser } from "@clerk/nextjs/server";
 
-const CheckoutPage = async () => {
-  const favorites = await fetchFavorites();
+const FavoritesPage = async () => {
+  const properties = await fetchFavorites();
 
-  if (favorites.length === 0) {
+  if (properties.length === 0) {
     return <EmptyList />;
   }
 
-  return <PropertiesList properties={favorites} />;
+  let favoriteMap: Record<string, string | null> = {};
+  const user = await currentUser();
+  if (user) {
+    favoriteMap = await fetchFavoriteIdsForUser(user.id);
+  }
+
+  return <PropertiesList properties={properties} favoriteMap={favoriteMap} />;
 };
 
-export default CheckoutPage;
+export default FavoritesPage;
