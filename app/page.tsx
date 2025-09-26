@@ -12,7 +12,7 @@ export default async function Home({
   return (
     <section>
       <CategoriesList category={category} search={search} />
-      <Suspense fallback={<LoadingCards />}>
+      <Suspense key={category + "-" + search} fallback={<LoadingCards />}>
         <PropertiesContainer category={category} search={search} />
       </Suspense>
     </section>
