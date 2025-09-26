@@ -12,6 +12,11 @@ export type PropertyCardProps = {
   price: number;
 };
 
+export type PropertyCardWithRating = PropertyCardProps & {
+  avgRating: number | null;
+  reviewCount: number;
+};
+
 export type DateRangeSelect = {
   startDate: Date;
   endDate: Date;

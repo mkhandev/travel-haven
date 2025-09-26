@@ -1,8 +1,8 @@
 import PropertyCard from "@/components/card/PropertyCard";
-import { PropertyCardProps } from "@/utils/types";
+import { PropertyCardWithRating } from "@/utils/types";
 
 type PropertiesListProps = {
-  properties: PropertyCardProps[];
+  properties: PropertyCardWithRating[];
   favoriteMap?: Record<string, string | null>;
 };
 

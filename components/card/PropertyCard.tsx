@@ -2,13 +2,13 @@ import CountryFlagAndName from "@/components/card/CountryFlagAndName";
 import FavoriteToggleButton from "@/components/card/FavoriteToggleButton";
 import PropertyRating from "@/components/card/PropertyRating";
 import { formatCurrency } from "@/utils/format";
-import { PropertyCardProps } from "@/utils/types";
+import { PropertyCardWithRating } from "@/utils/types";
 import Image from "next/image";
 import Link from "next/link";
 
 type PropertyCardComponentProps = {
-  property: PropertyCardProps;
-  favoriteId?: string | null; // added favoriteId prop
+  property: PropertyCardWithRating;
+  favoriteId?: string | null;
 };
 
 const PropertyCard = ({ property, favoriteId }: PropertyCardComponentProps) => {

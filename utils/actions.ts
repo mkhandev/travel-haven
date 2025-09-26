@@ -313,7 +313,7 @@ export const toggleFavoriteAction = async (prevState: {
   }
 };
 
-export const fetchFavorites = async () => {
+export const fetchFavoritesold = async () => {
   const user = await getAuthUser();
   const favorites = await db.favorite.findMany({
     where: { profileId: user.id },
@@ -334,8 +334,49 @@ export const fetchFavorites = async () => {
   return favorites.map((favorite) => favorite.property);
 };
 
+export const fetchFavorites = async () => {
+  const user = await getAuthUser();
+
+  const favorites = await db.favorite.findMany({
+    where: { profileId: user.id },
+    select: {
+      property: {
+        select: {
+          id: true,
+          name: true,
+          tagline: true,
+          country: true,
+          price: true,
+          image: true,
+          Review: {
+            select: {
+              rating: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  return favorites.map((favorite) => {
+    const { Review, ...property } = favorite.property;
+
+    const reviewCount = Review.length;
+    const avgRating =
+      reviewCount > 0
+        ? Review.reduce((sum, r) => sum + r.rating, 0) / reviewCount
+        : null;
+
+    return {
+      ...property,
+      avgRating,
+      reviewCount,
+    };
+  });
+};
+
 export const fetchPropertyDetails = async (propertyId: string) => {
-  return db.property.findUnique({
+  const property = await db.property.findUnique({
     where: {
       id: propertyId,
     },
@@ -347,8 +388,25 @@ export const fetchPropertyDetails = async (propertyId: string) => {
           checkOut: true,
         },
       },
+      Review: {
+        select: { rating: true },
+      },
     },
   });
+
+  if (!property) return null;
+
+  const avgRating =
+    property.Review.length > 0
+      ? property.Review.reduce((sum, r) => sum + r.rating, 0) /
+        property.Review.length
+      : null;
+
+  return {
+    ...property,
+    avgRating,
+    reviewCount: property.Review.length,
+  };
 };
 
 export const createReviewAction = async (

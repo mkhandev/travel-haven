@@ -3,7 +3,6 @@
 import { CardSubmitButton } from "@/components/form/Button";
 import FormContainer from "@/components/form/FormContainer";
 import { toggleFavoriteAction } from "@/utils/actions";
-import { log } from "console";
 import { usePathname } from "next/navigation";
 import React from "react";
 

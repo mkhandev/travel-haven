@@ -1,7 +1,7 @@
 import FavoriteToggleForm from "@/components/card/FavoriteToggleForm";
 import CardSignInButton from "@/components/form/CardSignInButton";
 
-import { fetchFavoriteIds } from "@/utils/actions";
+//import { fetchFavoriteIds } from "@/utils/actions";
 import { auth } from "@clerk/nextjs/server";
 
 const FavoriteToggleButton = async ({

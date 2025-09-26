@@ -1,7 +1,6 @@
 import EmptyList from "@/components/home/EmptyList";
 import PropertiesList from "@/components/home/PropertiesList";
 import { fetchFavoriteIdsForUser, fetchProperties } from "@/utils/actions";
-import { PropertyCardProps } from "@/utils/types";
 import { currentUser } from "@clerk/nextjs/server";
 import React from "react";
 
@@ -12,7 +11,7 @@ const PropertiesContainer = async ({
   category?: string;
   search?: string;
 }) => {
-  const properties: PropertyCardProps[] = await fetchProperties({
+  const properties = await fetchProperties({
     category,
     search,
   });
